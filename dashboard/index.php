@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
+    <title>Home</title>
 </head>
 <body>
     <?php include_once "navbar.php";?>
-    <h1>Welcome to student management system</h1>
+    <h1>Welcome to Student Management System</h1>
     <br>
+
+    <!-- Search Form -->
+    <form method="post" action="">
+        <label for="search_query">Search Students:</label><small> (Search by NIC, Name, Address, Tel no, Course)</small>
+        <input type="text" id="search_query" name="search_query">
+        <input type="submit" value="Search">
+    </form>
     <br>
+    
     <table border="3">
         <tr>
             <th>Student ID</th> 
@@ -24,8 +32,18 @@
         // Include the database connection file
         include_once "asset/php/db_connection.php";
 
-        // Fetch data from student table
+        // Initialize the query for fetching data
         $sql = "SELECT * FROM student";
+
+        // Check if search form is submitted
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['search_query'])) {
+            $search_query = $conn->real_escape_string($_POST['search_query']);
+            $sql .= " WHERE nic LIKE '%$search_query%' OR srudent_name LIKE '%$search_query%' 
+                    OR srudent_address LIKE '%$search_query%' OR srudent_no LIKE '%$search_query%' 
+                    OR srudent_course LIKE '%$search_query%'";
+        }
+
+        // Fetch data from student table
         $result = $conn->query($sql);
 
         // Check if there are any rows returned
@@ -54,7 +72,7 @@
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='7'>0 results</td></tr>";
+            echo "<tr><td colspan='7'>No results found</td></tr>";
         }
 
         // Close database connection
