@@ -1,4 +1,4 @@
-hbhh<?php include_once "asset/php/session.php"; 
+<?php include_once "asset/php/session.php"; 
 ?>
 <!DOCTYPE html>
 <html>

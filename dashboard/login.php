@@ -24,7 +24,7 @@
         </form>
     </center>
     <center>
-        <p>Looking for signup? <a href="signup.php">Click here</a></p>
+        <p>Create an account? <a href="signup.php">Click here</a></p>
     </center>
     <?php
 session_start();
